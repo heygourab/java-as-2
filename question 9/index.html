@@ -1,0 +1,86 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>JSTL Core Tags Demo</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+        h1 { color: #333; }
+        h2 { color: #666; }
+        pre { background-color: #f4f4f4; padding: 10px; border-radius: 5px; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>JSTL Core Tags Demonstration</h1>
+
+    <h2>1. set</h2>
+    <c:set var="name" value="John Doe" />
+    <p>Name: ${name}</p>
+
+    <h2>2. out</h2>
+    <p><c:out value="${name}" default="Guest" /></p>
+
+    <h2>3. remove</h2>
+    <c:remove var="name" />
+    <p>Name after remove: <c:out value="${name}" default="Guest" /></p>
+
+    <h2>4. catch</h2>
+    <c:catch var="catchException">
+        <% int x = 5/0; %>
+    </c:catch>
+    <c:if test="${catchException != null}">
+        <p class="error">Exception: ${catchException.message}</p>
+    </c:if>
+
+    <h2>5. if</h2>
+    <c:set var="age" value="25" />
+    <c:if test="${age >= 18}">
+        <p>You are an adult.</p>
+    </c:if>
+
+    <h2>6. choose, when, otherwise</h2>
+    <c:choose>
+        <c:when test="${age < 13}">
+            <p>Child</p>
+        </c:when>
+        <c:when test="${age >= 13 && age < 20}">
+            <p>Teenager</p>
+        </c:when>
+        <c:otherwise>
+            <p>Adult</p>
+        </c:otherwise>
+    </c:choose>
+
+    <h2>7. forEach</h2>
+    <c:forEach var="i" begin="1" end="5">
+        <p>Item ${i}</p>
+    </c:forEach>
+
+    <h2>8. forTokens</h2>
+    <c:forTokens items="apple,banana,cherry" delims="," var="fruit">
+        <p>${fruit}</p>
+    </c:forTokens>
+
+    <h2>9. import</h2>
+    <c:import url="http://www.example.com" var="exampleContent" />
+    <pre>${exampleContent}</pre>
+
+    <h2>10. url</h2>
+    <c:url value="/index.jsp" var="myURL">
+        <c:param name="action" value="view" />
+        <c:param name="id" value="123" />
+    </c:url>
+    <p>URL: ${myURL}</p>
+
+    <h2>11. redirect</h2>
+    <!-- Uncomment to test redirect -->
+    <%-- <c:redirect url="http://www.example.com" /> --%>
+
+    <h2>12. param (used with url above)</h2>
+    <!-- Demonstrated in the url tag example -->
+
+</body>
+</html>
